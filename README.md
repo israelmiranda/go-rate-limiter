@@ -200,10 +200,10 @@ type PersistenceStrategy interface {
 
 ```
 .
-├── Dockerfile                 # Main application container
+├── Dockerfile                # Main application container
 ├── Dockerfile.test           # Test container
 ├── docker-compose.yml        # Application services
-├── docker-compose.test.yml   # Test services
+├── compose.test.yml          # Test services
 ├── Makefile                  # Build and test automation
 ├── go.mod
 ├── .env.example
