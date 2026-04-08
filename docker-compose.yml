@@ -1,0 +1,40 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - REDIS_ADDR=redis:6379
+      - REDIS_PASSWORD=
+      - REDIS_DB=0
+      - RATE_LIMIT_IP=10
+      - RATE_LIMIT_TOKEN=100
+      - BLOCK_DURATION=5m
+      - SERVER_PORT=8080
+    depends_on:
+      - redis
+    networks:
+      - rate-limiter-network
+
+  redis:
+    image: redis:5
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 512M
+    container_name: rate-limiter-redis
+    hostname: rate-limiter-redis
+    volumes:
+      - "rate-limiter-redis:/data"
+    ports:
+      - "6379:6379"
+    networks:
+      - rate-limiter-network
+
+volumes:
+  rate-limiter-redis:
+
+networks:
+  rate-limiter-network:
